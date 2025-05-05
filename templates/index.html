@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disease Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Disease Prediction System</h2>
+        <form method="POST" action="/predict">
+            <div class="form-grid">
+                {% for s in ['fever','headache','nausea','vomiting','fatigue','joint_pain','skin_rash','cough','weight_loss','yellow_eyes'] %}
+                    <div class="form-item">
+                        <label>{{ s.replace('_', ' ').title() }}</label>
+                        <select name="{{ s }}" required>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                {% endfor %}
+            </div>
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if result %}
+            <div class="prediction-box">
+                <h3>🩺 Prediction Result</h3>
+                <p>{{ result }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
